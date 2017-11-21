@@ -21,10 +21,12 @@ class FixturizeFixtureManager extends CakeFixtureManager {
  */
 	public function loadAllFixtures($source, $fixtures) {
 		$this->_initDb($source);
-		try {
-			$this->_loadFixtures($fixtures);
-		} catch (Exception $e ){
-			CakeLog::error('-> ' . $e->getMessage(), array('fixturize'));
+		foreach($fixtures as $fixture){
+			try {
+				$this->_loadFixtures([ $fixture ]);
+			} catch (Exception $e ){
+				CakeLog::error('-> ' . $e->getMessage(), array('fixturize'));
+			}
 		}
 
 		CakeLog::debug('Begin fixture import', array('fixturize'));
